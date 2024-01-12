@@ -1,0 +1,38 @@
+Part 2 - Video API:
+Create an API endpoint that can:
+a. Receive the uploaded video file from backend and store it.
+b. Create and store a subtitles file using the data that is submitted by the user. 
+c. This file will contain the subtitles text and associate it with specific timestamps 
+d. on the video.
+e. Retrieve subtitles file associated with the video for user to play it.
+.......................................................................................................................................................................................................................
+
+Ans : 
+
+Part 2 - Video API Development:
+Objective:
+Create an API endpoint that handles backend operations related to video and subtitles management. This API should be capable of receiving and storing video files, creating and storing subtitles files with associated timestamps, and retrieving subtitles files for users to play videos with synchronized subtitles.
+
+API Endpoints:
+1. Receive and Store Video:
+Endpoint: POST /api/upload-video
+
+Description:
+Implement an API endpoint that receives the uploaded video file from the backend and securely stores it. Ensure proper validation and error handling for uploaded files.
+
+2. Create and Store Subtitles:
+Endpoint: POST /api/create-subtitles
+
+Description:
+Develop an API endpoint that creates and stores a subtitles file using data submitted by the user. The subtitles file should contain text associated with specific timestamps on the video. Validate the input data to ensure correctness and consistency.
+
+3. Retrieve Subtitles File:
+Endpoint: GET /api/get-subtitles/:videoId
+
+Description:
+Implement an API endpoint that retrieves the subtitles file associated with a specific video (videoId). Users should be able to access the subtitles file to play the video with synchronized subtitles.
+
+Technologies:
+Use a backend framework such as Express.js, Django, or Flask for API development.
+Utilize appropriate middleware for handling file uploads and requests.
+Implement secure storage solutions for video and subtitles files (e.g., Amazon S3, Google Cloud Storage, or local storage with proper access controls).
