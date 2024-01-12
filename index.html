@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Subtitle Editor</title>
+    <style>
+        #videoPlayer {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="videoInput" accept="video/*">
+    <br>
+    <textarea id="subtitleInput" placeholder="Add subtitles at specific timestamps"></textarea>
+    <button onclick="addSubtitle()">Add Subtitle</button>
+    <br>
+    <video id="videoPlayer" controls></video>
+    <div id="subtitleDisplay"></div>
+
+    <script>
+        let videoPlayer = document.getElementById('videoPlayer');
+        let videoInput = document.getElementById('videoInput');
+        let subtitleInput = document.getElementById('subtitleInput');
+        let subtitleDisplay = document.getElementById('subtitleDisplay');
+        let subtitles = [];
+
+        videoInput.addEventListener('change', function () {
+            loadVideo();
+        });
+
+        function loadVideo() {
+            const file = videoInput.files[0];
+            const objectURL = URL.createObjectURL(file);
+            videoPlayer.src = objectURL;
+        }
+
+        function addSubtitle() {
+            const currentTime = videoPlayer.currentTime;
+            const subtitleText = subtitleInput.value;
+
+            if (subtitleText.trim() !== '') {
+                subtitles.push({ time: currentTime, text: subtitleText });
+                subtitleInput.value = '';
+                displaySubtitles();
+            }
+        }
+
+        function displaySubtitles() {
+            subtitleDisplay.innerHTML = '';
+
+            subtitles.forEach(subtitle => {
+                const div = document.createElement('div');
+                div.innerHTML = `<strong>${formatTime(subtitle.time)}:</strong> ${subtitle.text}`;
+                subtitleDisplay.appendChild(div);
+            });
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+        }
+
+        videoPlayer.addEventListener('timeupdate', function () {
+            displaySubtitles();
+        });
+    </script>
+</body>
+</html>
